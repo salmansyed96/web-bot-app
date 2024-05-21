@@ -1,7 +1,7 @@
 'use client'
 
-import React from "react";
-import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue} from "@nextui-org/react";
+import React, { useMemo, useState } from "react";
+import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell,  Pagination, image} from "@nextui-org/react";
 import { User, columns, renderCell } from "../User/columns";
 
 const rows = [
@@ -10,6 +10,7 @@ const rows = [
     name: "Tony Reichert",
     role: "CEO",
     status: "Active",
+    
   },
   {
     key: "2",
@@ -34,12 +35,47 @@ const rows = [
 
 
 export default function UserTable({users}:{users: User[]}) {
+
+    const [page, setPage] = useState(1);
+  const rowsPerPage = 7;
+
+  const pages = Math.ceil(users.length / rowsPerPage);
+
+  const items = useMemo(() => {
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+
+    return users.slice(start, end);
+  }, [page, users]);
+
+
+
+
   return (
-    <Table aria-label="Example table with dynamic content">
+    <Table aria-label="Example table with dynamic content"
+    
+    bottomContent={
+        <div className="flex w-full justify-center">
+          <Pagination
+            isCompact
+            showControls
+            showShadow
+            color="secondary"
+            page={page}
+            total={pages}
+            onChange={(page) => setPage(page)}
+          />
+        </div>
+      }
+      classNames={{
+        wrapper: "min-h-[222px]",
+      }}
+    
+    >
       <TableHeader columns={columns}>
         {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
       </TableHeader>
-      <TableBody items={users} emptyContent={"No User to display."}>
+      <TableBody items={items} emptyContent={"No User to display."}>
         {(item) => (
           <TableRow key={item.id}>
             {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}

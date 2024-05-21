@@ -1,5 +1,8 @@
-import React from "react";
-export const EyeIcon = (props) => (
+type IconProps = React.SVGProps<SVGSVGElement>
+
+
+
+export const EyeIcon = (props:IconProps) => (
   <svg
     aria-hidden="true"
     fill="none"
@@ -27,7 +30,7 @@ export const EyeIcon = (props) => (
   </svg>
 );
 
-export const DeleteIcon = (props) => (
+export const DeleteIcon = (props:IconProps) => (
   <svg
     aria-hidden="true"
     fill="none"
@@ -77,7 +80,7 @@ export const DeleteIcon = (props) => (
 );
 
 
-export const EditIcon = (props) => (
+export const EditIcon = (props:IconProps) => (
   <svg
     aria-hidden="true"
     fill="none"
@@ -111,6 +114,29 @@ export const EditIcon = (props) => (
       strokeLinejoin="round"
       strokeMiterlimit={10}
       strokeWidth={1.5}
+    />
+  </svg>
+);
+
+
+export const SearchIcon = (props: IconProps) => (
+  <svg
+    aria-hidden="true"
+    fill="none"
+    focusable="false"
+    height="1em"
+    role="presentation"
+    viewBox="0 0 20 20"
+    width="1em"
+    {...props}
+  >
+    <path
+      d="M9 2.5c3.038 0 5.5 2.462 5.5 5.5 0 1.34-.48 2.572-1.282 3.522l3.543 3.543-1.414 1.414-3.543-3.543A5.495 5.495 0 0 1 9 15c-3.038 0-5.5-2.462-5.5-5.5S5.962 4 9 4zm0 1C6.794 5.5 5.5 6.794 5.5 9S6.794 12.5 9 12.5 12.5 11.206 12.5 9 11.206 5.5 9 5.5z"
+      fill="currentColor"
+    />
+    <path
+      d="M17.5 17.5l-4.58-4.58a6.481 6.481 0 0 0 1.08-3.58c0-3.59-2.91-6.5-6.5-6.5S1 6.33 1 9.92s2.91 6.5 6.5 6.5c1.1 0 2.142-.27 3.04-.74L17.5 17.5zM3 9.92c0-2.757 2.243-5 5-5s5 2.243 5 5c0 1.757-.89 3.312-2.253 4.238l2.594 2.594-1.414 1.414-2.594-2.594C6.312 13.232 5 11.697 5 9.92z"
+      fill="currentColor"
     />
   </svg>
 );
