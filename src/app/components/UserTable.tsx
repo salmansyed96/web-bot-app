@@ -2,7 +2,7 @@
 
 import React from "react";
 import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue} from "@nextui-org/react";
-import { User, columns } from "../User/columns";
+import { User, columns, renderCell } from "../User/columns";
 
 const rows = [
   {
@@ -42,7 +42,7 @@ export default function UserTable({users}:{users: User[]}) {
       <TableBody items={users} emptyContent={"No User to display."}>
         {(item) => (
           <TableRow key={item.id}>
-            {(columnKey) => <TableCell>{getKeyValue(item, columnKey)}</TableCell>}
+            {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
           </TableRow>
         )}
       </TableBody>
