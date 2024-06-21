@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useMemo, useState } from "react";
-import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell,  Pagination, image} from "@nextui-org/react";
+import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell,  Pagination, } from "@nextui-org/react";
 import { User, columns, renderCell } from "../User/columns";
 
 const rows = [

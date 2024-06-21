@@ -1,8 +1,11 @@
-import Image from "next/image";
+import LoginPage from './LoginPage/page';
 
-export default function Home() {
+const HomePage: React.FC = () => {
   return (
-    <>
-    </>
+    <div>
+      <LoginPage />
+    </div>
   );
-}
+};
+
+export default HomePage;
