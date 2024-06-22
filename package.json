@@ -14,6 +14,7 @@
     "@nextui-org/table": "^2.0.33",
     "@nextui-org/theme": "^2.2.3",
     "@nextui-org/user": "^2.0.28",
+    "axios": "^1.7.2",
     "framer-motion": "^11.2.4",
     "next": "14.2.3",
     "react": "^18",

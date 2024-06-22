@@ -1,9 +1,4 @@
-// services/apiService.ts
-
-export interface ApiResponse<T> {
-  data: T;
-  error?: string;
-}
+import axios, { AxiosResponse } from "axios";
 
 export const apiService = {
   async get<T>(url: string): Promise<ApiResponse<T>> {
@@ -38,11 +33,14 @@ export const apiService = {
     }
   },
 
-  async login(username: string, password: string): Promise<ApiResponse<any>> {
+  async login(username: string, password: string): Promise<AxiosResponse<any>> {
     const url = `${process.env.NEXT_PUBLIC_API_URL}/login`;
     const data = { username, password };
-    return this.post<any>(url, data);
+    return axios.post<any>(url, data);
   },
-
-  // Add more methods as needed (put, delete, etc.)
 };
+
+export interface ApiResponse<T> {
+  data: T;
+  error?: string;
+}
