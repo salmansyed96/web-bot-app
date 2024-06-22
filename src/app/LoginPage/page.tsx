@@ -17,7 +17,9 @@ const LoginForm: React.FC = () => {
             role  :[role]
 
         }
-        const response = await apiService.login(username, password);
+        const response = await apiService.login(data);
+        console.log(response.data);
+        
 
       //   {
       //     "username" : "superadmin",

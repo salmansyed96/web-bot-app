@@ -33,9 +33,9 @@ export const apiService = {
     }
   },
 
-  async login(username: string, password: string): Promise<AxiosResponse<any>> {
-    const url = `${process.env.NEXT_PUBLIC_API_URL}/login`;
-    const data = { username, password };
+  async login(data:any): Promise<AxiosResponse<any>> {
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/auth/signin`;
+    // const data = { username, password };
     return axios.post<any>(url, data);
   },
 };
