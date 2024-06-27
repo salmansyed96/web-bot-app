@@ -14,9 +14,10 @@
 //     )
 // }
 
-// 'use client'
+'use client'
 
 // import React, { useState } from 'react';
+// import { apiService } from "../Service/apiService";
 
 // const FormComponent: React.FC = () => {
 //   const [campaignName, setCampaignName] = useState('');
@@ -102,12 +103,15 @@
 
 
 
-//----------------------
 
-"use client"
+
+
+
+
+
 
 import React, { useState } from 'react';
-import axios from 'axios'; // Import axios for making HTTP requests
+import { apiService, ApiResponse } from '../Service/apiService';
 
 const FormComponent: React.FC = () => {
   const [campaignName, setCampaignName] = useState('');
@@ -118,29 +122,30 @@ const FormComponent: React.FC = () => {
     e.preventDefault();
 
     try {
-      // Prepare form data to send to the server
-      const formData = new FormData();
-      formData.append('campaignName', campaignName);
-      formData.append('startDate', startDate);
-      if (file) {
-        formData.append('file', file);
+      const formData = {
+        campaignName,
+        startDate,
+        file,
+      };
+      console.log(formData);
+      
+
+      const response: ApiResponse<any> = await apiService.addCampaign(formData);
+
+      if (response.error) {
+        console.error('Error adding campaign:', response.error);
+        // Handle error (e.g., show error message to user)
+      } else {
+        console.log('Campaign added successfully:', response.data);
+        // Handle success (e.g., show success message, redirect user)
+        // Optionally reset form fields
+        setCampaignName('');
+        setStartDate('');
+        setFile(null);
       }
-
-      // Make POST request to the API endpoint
-      const response = await axios.post('http://localhost:8081/maker/add-campaign', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data', // Ensure correct headers for file upload
-        },
-      });
-
-      // Handle success (e.g., show success message, reset form fields)
-      console.log('Form submitted successfully:', response.data);
-      setCampaignName('');
-      setStartDate('');
-      setFile(null);
     } catch (error) {
-      // Handle error (e.g., show error message)
-      console.error('Error submitting form:', error);
+      console.error('Error adding campaign:', error);
+      // Handle unexpected errors
     }
   };
 

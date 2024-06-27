@@ -40,12 +40,12 @@ const LoginForm: React.FC = () => {
     };
     try {
       const response: any = await apiService.login(data);
-      console.log("Login successful:", response.data);
-      localStorage.setItem("token", response.token);
-      localStorage.setItem("token_expire", response.expiryTime);
+      console.log("Login successful:", response.data.expieryTime);
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("token_expire", response.data.expieryTime);
 
       // add routing
-      router.push('/User');
+      router.push('/Campaigns');
     } catch (error: any) {
       
       console.error("Login failed:", error.message);

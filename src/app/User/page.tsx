@@ -24,9 +24,10 @@ export default async function Users() {
   return (
     <>
     <div className=' justify-center'> <h1 style={{ marginLeft: '40px', marginRight: '40px', marginTop: '40px', fontWeight: 'bold', fontSize: '40px' }}>User</h1>
+    <div><button >Add New User</button> </div></div>
       <UserTable users={users}/>
 
-      <button>Add to Cart</button> </div>
+      
       
 
       

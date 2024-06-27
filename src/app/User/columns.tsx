@@ -29,6 +29,7 @@ export const columns = [
 
 export const renderCell = (user: User, columnKey: React.Key) => {
   const cellValue = user[columnKey as keyof User];
+  console.log(user)
 
   switch (columnKey) {
     case "name":

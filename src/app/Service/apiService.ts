@@ -38,9 +38,24 @@ export const apiService = {
     // const data = { username, password };
     return axios.post<any>(url, data);
   },
+
+
+  // async addCampaign(data: any): Promise<AxiosResponse<any>> {
+  //   const url = 'http://localhost:8081/maker/add-campaign';
+  //   return axios.post<any>(url, data);
+  // },
+
+  async getAllCampaign(): Promise<AxiosResponse<any>> {
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/checker/all-messages`;
+    return axios.get<any>(url);
+  },
+
+
 };
 
 export interface ApiResponse<T> {
   data: T;
   error?: string;
 }
+
+
