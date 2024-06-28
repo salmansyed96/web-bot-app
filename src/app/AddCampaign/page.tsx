@@ -115,22 +115,34 @@ import { apiService, ApiResponse } from '../Service/apiService';
 
 const FormComponent: React.FC = () => {
   const [campaignName, setCampaignName] = useState('');
-  const [startDate, setStartDate] = useState('');
+ 
   const [file, setFile] = useState<File | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(file)
+    let username=localStorage.getItem("username")
+    console.log(username)
+    if (!file) {
+      alert('Please select a file.');
+      return;
+    }
 
     try {
+
       const formData = {
         campaignName,
-        startDate,
+        
         file,
       };
       console.log(formData);
-      
+      const formDatas = new FormData();
+      formDatas.append('campaignName', JSON.stringify(campaignName));
+      formDatas.append('createdBy', JSON.stringify(username));
+      formDatas.append('file', file);
+      console.log(formDatas)
 
-      const response: ApiResponse<any> = await apiService.addCampaign(formData);
+      const response: ApiResponse<any> = await apiService.addCampaign(formDatas);
 
       if (response.error) {
         console.error('Error adding campaign:', response.error);
@@ -140,7 +152,7 @@ const FormComponent: React.FC = () => {
         // Handle success (e.g., show success message, redirect user)
         // Optionally reset form fields
         setCampaignName('');
-        setStartDate('');
+        
         setFile(null);
       }
     } catch (error) {
@@ -148,6 +160,8 @@ const FormComponent: React.FC = () => {
       // Handle unexpected errors
     }
   };
+
+  
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -175,18 +189,7 @@ const FormComponent: React.FC = () => {
             placeholder="Enter campaign name"
           />
         </div>
-        <div className="mb-4">
-          <label htmlFor="startDate" className="block text-gray-700 font-bold mb-2">
-            Campaign Start Date:
-          </label>
-          <input
-            id="startDate"
-            type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-            className="w-full border-2 border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
-          />
-        </div>
+      
         <div className="mb-4">
           <label htmlFor="file" className="block text-gray-700 font-bold mb-2">
             Upload File:
