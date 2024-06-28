@@ -106,7 +106,7 @@ const page = () => {
     <div className='flex justify-between'><h1 style={{ marginLeft: '40px', marginRight: '40px', marginTop: '40px', fontWeight: 'bold', fontSize: '40px' }}>
   Compaigns
 </h1>
-<button  className='mr-6 bg-green-500 text-white rounded' onClick={handleAddCampaigns}>Add Campaigns</button>
+<button  className='mr-10 h-55px py-4 mt-20 rounded-xl bg-green-600 text-white' onClick={handleAddCampaigns}>Add Campaigns</button>
 </div>
 <div className="overflow-x-auto">
       <table className="min-w-full bg-white shadow-md border-collapse">
