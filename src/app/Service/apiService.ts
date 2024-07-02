@@ -51,20 +51,35 @@ export const apiService = {
   },
 
   async login(data: any): Promise<AxiosResponse<any>> {
-    const url = `${process.env.NEXT_PUBLIC_API_URL}/auth/signin`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}api/v1/auth/signin`;
     // const data = { username, password };
     return axios.post<any>(url, data);
   },
 
   async addCampaign(data: any): Promise<AxiosResponse<any>> {
-    const url = `${process.env.NEXT_PUBLIC_API_URL}/maker/add-campaign`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}maker/add-campaign`;
     return axios.post<any>(url, data);
   },
 
+  // async getAllCampaign(): Promise<AxiosResponse<any>> {
+    
+  //   const url = `${process.env.NEXT_PUBLIC_API_URL}checker/all-messages`;
+  //   return axios.get<any>(url);
+  // }
   async getAllCampaign(): Promise<AxiosResponse<any>> {
-    const url = `${process.env.NEXT_PUBLIC_API_URL}/checker/all-messages`;
-    return axios.get<any>(url);
-  },
+    const url = `${process.env.NEXT_PUBLIC_API_URL}checker/all-messages`;
+    const headers = {
+      'ngrok-skip-browser-warning': '69420',
+    };
+  
+    try {
+      const response = await axios.get(url, { headers });
+      return response;
+    } catch (error) {
+      console.error('Error fetching campaigns:', error);
+      throw error;
+    }
+  }
 };
 
 export interface ApiResponse<T> {

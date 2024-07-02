@@ -29,14 +29,19 @@
 
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const NavBar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const router = useRouter();
   const handleLogout = () => {
     // Implement logout logic here
     // For example, clearing session/local storage, redirecting, etc.
+    localStorage.clear();
     console.log('Logged out');
+     // add routing
+     router.push('/LoginPage');
+
     // After logout logic, you can redirect to login page or perform other actions
   };
 
@@ -63,7 +68,7 @@ const NavBar: React.FC = () => {
         </button>
         {isOpen && (
           <div className='absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1'>
-            <button
+            <button 
               className='block px-4 py-2 text-gray-800 hover:bg-gray-200 w-full text-left'
               onClick={handleLogout}
             >

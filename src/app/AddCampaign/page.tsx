@@ -15,6 +15,7 @@
 // }
 
 'use client'
+import { useRouter } from 'next/navigation';
 
 // import React, { useState } from 'react';
 // import { apiService } from "../Service/apiService";
@@ -118,41 +119,83 @@ const FormComponent: React.FC = () => {
  
   const [file, setFile] = useState<File | null>(null);
 
+  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   // console.log(file)
+  //   let username=localStorage.getItem("username")
+  //   // console.log(username)
+  //   if (!file) {
+  //     alert('Please select a file.');
+  //     return;
+  //   }
+
+  //   try {
+  //     // console.log(file)
+
+  //     const formData = {
+  //       campaignName,
+        
+  //       file,
+  //     };
+  //     console.log(formData);
+  //     const formDatas = new FormData();
+  //     formDatas.append('campaignName', JSON.stringify(campaignName));
+  //     formDatas.append('createdBy', JSON.stringify(username));
+  //     formDatas.append('file', file);
+  //     console.log(formDatas)
+
+  //     const response: ApiResponse<any> = await apiService.addCampaign(formDatas);
+
+  //     if (response.error) {
+  //       console.error('Error adding campaign:', response.error);
+  //       // Handle error (e.g., show error message to user)
+  //     } else {
+  //       console.log('Campaign added successfully:', response.data);
+  //       // Handle success (e.g., show success message, redirect user)
+  //       // Optionally reset form fields
+  //       setCampaignName('');
+        
+  //       setFile(null);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error adding campaign:', error);
+  //     // Handle unexpected errors
+  //   }
+  // };
+
+
+
+  const router = useRouter();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(file)
-    let username=localStorage.getItem("username")
-    console.log(username)
+  
+    let username:any = localStorage.getItem("username");
+  
     if (!file) {
       alert('Please select a file.');
       return;
     }
-
+  
     try {
-
-      const formData = {
-        campaignName,
-        
-        file,
-      };
-      console.log(formData);
       const formDatas = new FormData();
-      formDatas.append('campaignName', JSON.stringify(campaignName));
-      formDatas.append('createdBy', JSON.stringify(username));
+      formDatas.append('campaignName', campaignName);  // Directly append campaignName
+      formDatas.append('createdBy', username);         // Directly append username
       formDatas.append('file', file);
-      console.log(formDatas)
-
+  
+      console.log(formDatas);
+  
       const response: ApiResponse<any> = await apiService.addCampaign(formDatas);
-
+  
       if (response.error) {
         console.error('Error adding campaign:', response.error);
         // Handle error (e.g., show error message to user)
       } else {
         console.log('Campaign added successfully:', response.data);
+        router.push('/Campaigns');
+
         // Handle success (e.g., show success message, redirect user)
         // Optionally reset form fields
         setCampaignName('');
-        
         setFile(null);
       }
     } catch (error) {
@@ -160,7 +203,7 @@ const FormComponent: React.FC = () => {
       // Handle unexpected errors
     }
   };
-
+  
   
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -168,6 +211,7 @@ const FormComponent: React.FC = () => {
     if (selectedFile) {
       setFile(selectedFile);
     }
+    // console.log(selectedFile)
   };
 
   return (
