@@ -1,7 +1,7 @@
 // components/LoginForm.tsx
 "use client";
 
-import React, {  useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { apiService } from "../Service/apiService";
 import { useRouter } from 'next/navigation';
 
@@ -27,6 +27,10 @@ const LoginForm: React.FC = () => {
   // }, []);
 
   const router = useRouter();
+
+  // useEffect(()=>{
+  //   return <LoginForm profile false/>
+  // })
 
 
 

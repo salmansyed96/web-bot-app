@@ -237,6 +237,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation';
+
 import React, { useState, useEffect } from 'react';
 import { apiService } from '../Service/apiService'
 import { FaTrash , FaEdit} from 'react-icons/fa';
@@ -321,6 +322,11 @@ const Page = () => {
     console.log('Add Campaigns button clicked');
     router.push('/AddCampaign');
   };
+  const handleCampaignClick=(id:any)=>{
+    console.log(id)
+    router.push(`/Campaigns//${id}`);
+
+  }
 
   return (
     <>
@@ -328,7 +334,7 @@ const Page = () => {
         <h1 style={{ marginLeft: '40px', marginRight: '40px', marginTop: '40px', fontWeight: 'bold', fontSize: '40px' }}>
           Campaigns
         </h1>
-        <button className='mr-10 h-55px py-4 mt-20 rounded-xl bg-green-600 text-white' onClick={handleAddCampaigns}>
+        <button className='addbtn mr-10 h-55px py-4 mt-20 rounded-xl bg-green-00 text-white p-3' onClick={handleAddCampaigns}>
           Add Campaigns
         </button>
       </div>
@@ -345,7 +351,7 @@ const Page = () => {
           <tbody className='ml-10'>
         {campaigns.map(campaign => (
           <tr key={campaign.id} className="border-b">
-            <td className="p-3">{campaign.campaignName}</td>
+            <td className="p-3" onClick={() => handleCampaignClick(campaign.id)}>{campaign.campaignName}</td>
             <td className="p-3">{campaign.createdDate}</td>
             <td className="p-3" >
                 <span style={{ backgroundColor: 'rgb(217 247 230)', color:'#28C76F', padding: '10px' }} className={`px-2 py-1 rounded-md font-semibold text-white ${campaign.status == 1 ? 'bg-yellow-500' : 'bg-green-500'}`}>
