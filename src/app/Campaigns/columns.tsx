@@ -8,7 +8,7 @@
 //     image: string;
 //     lastSeen: string;
 //   };
-  
+
 //   export const columns = [
 //     {
 //       key: "name",
@@ -20,7 +20,7 @@
 
 
 
-    
+
 //     {
 //       key: "lastSeen",
 //       label: "Last Seen",
@@ -30,10 +30,10 @@
 //       label: "Actions",
 //     },
 //   ];
-  
+
 //   export const renderCell = (user: User, columnKey: React.Key) => {
 //     const cellValue = user[columnKey as keyof User];
-  
+
 //     switch (columnKey) {
 //       case "name":
 //         return (
@@ -71,7 +71,7 @@
 //         return cellValue;
 //     }
 //   };
-  
+
 //   const ExampleTable = ({ users }: { users: User[] }) => {
 //     return (
 //       <Table aria-label="Example table with custom cells">
@@ -99,9 +99,9 @@
 //       </Table>
 //     );
 //   };
-  
+
 //   export default ExampleTable;
-  
+
 
 
 
@@ -208,7 +208,7 @@
 //     },
 //     // Add more campaigns as needed
 //   ];
-  
+
 //   const router = useRouter();
 
 //   const handleAddCampaigns = () => {
@@ -344,7 +344,7 @@
 
 
 
-    
+
 // </>
 //   )
 // }
@@ -357,7 +357,7 @@ import { useRouter } from 'next/navigation';
 
 import React, { useState, useEffect } from 'react';
 import { apiService } from '../Service/apiService'
-import { FaTrash , FaEdit} from 'react-icons/fa';
+import { FaTrash, FaEdit } from 'react-icons/fa';
 
 interface Campaign {
   id: number;
@@ -384,7 +384,7 @@ const Page = () => {
         if (response && response.data) {
           // Create a set to track unique campaign names
           const uniqueCampaigns = new Set();
-          const filteredCampaigns = response.data.filter((campaign:any) => {
+          const filteredCampaigns = response.data.filter((campaign: any) => {
             if (uniqueCampaigns.has(campaign.campaignName)) {
               return false; // Skip this campaign as it's a duplicate
             }
@@ -442,8 +442,8 @@ const Page = () => {
 
   return (
     <>
-      <div className='flex justify-between'>
-        <h1 style={{ marginLeft: '40px', marginRight: '40px', marginTop: '40px', fontWeight: 'bold', fontSize: '40px' }}>
+      <div className='flex justify-between align-baseline'>
+        <h1 style={{ fontWeight: 'bold', fontSize: '40px' }}>
           Campaigns
         </h1>
         <button className='mr-10 h-55px py-4 mt-20 rounded-xl bg-green-00 text-white p-3' onClick={handleAddCampaigns}>
@@ -461,29 +461,29 @@ const Page = () => {
             </tr>
           </thead>
           <tbody className='ml-10'>
-        {campaigns.map(campaign => (
-          <tr key={campaign.id} className="border-b">
-            <td className="p-3">{campaign.campaignName}</td>
-            <td className="p-3">{campaign.createdDate}</td>
-            <td className="p-3" >
-                <span style={{ backgroundColor: 'rgb(217 247 230)', color:'#28C76F', padding: '10px' }} className={`px-2 py-1 rounded-md font-semibold text-white ${campaign.status == 1 ? 'bg-yellow-500' : 'bg-green-500'}`}>
-                  {campaign.status == 0 ? 'Pending' : 'Active'}
-                </span>
-              </td>
-            <td className="p-3">
-            <button className="p-2">
-                  <FaEdit style={{ color: '#4B465C' }} />
-                </button>
-              {/* <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2">
+            {campaigns.map(campaign => (
+              <tr key={campaign.id} className="border-b">
+                <td className="p-3">{campaign.campaignName}</td>
+                <td className="p-3">{campaign.createdDate}</td>
+                <td className="p-3" >
+                  <span style={{ backgroundColor: 'rgb(217 247 230)', color: '#28C76F', padding: '10px' }} className={`px-2 py-1 rounded-md font-semibold text-white ${campaign.status == 1 ? 'bg-yellow-500' : 'bg-green-500'}`}>
+                    {campaign.status == 0 ? 'Pending' : 'Active'}
+                  </span>
+                </td>
+                <td className="p-3">
+                  <button className="p-2">
+                    <FaEdit style={{ color: '#4B465C' }} />
+                  </button>
+                  {/* <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2">
                 Delete
               </button> */}
-              <button className="p-2">
-                  <FaTrash style={{ color: '#4B465C' }} />
-                </button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
+                  <button className="p-2">
+                    <FaTrash style={{ color: '#4B465C' }} />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
           {/* <tbody>
            {campaigns.map(campaign => (
               <tr key={campaign.id} className="border-b">
