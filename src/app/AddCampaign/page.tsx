@@ -221,7 +221,7 @@ const FormComponent: React.FC = () => {
       </h1>
       <form onSubmit={handleSubmit} className="w-900 ml-11 mt-9 bg-white p-6 rounded-lg shadow-md">
         <div className="mb-4">
-          <label htmlFor="campaignName" className="block text-gray-700 font-bold mb-2">
+          <label htmlFor="campaignName" className="block text-gray-700 font-bold mb-2 ">
             Campaign Name:
           </label>
           <input
