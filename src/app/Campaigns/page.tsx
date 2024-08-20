@@ -331,7 +331,7 @@ const Page = () => {
   return (
     <>
       <div className='flex justify-between items-baseline'>
-        <h1 style={{ fontWeight: 'bold', fontSize: '40px' }}>
+        <h1 className='ml-14' style={{ fontWeight: 'bold', fontSize: '40px' }}>
           Campaigns
         </h1>
         <button className='addbtn mr-10 h-55px py-4 mt-20 rounded-xl bg-green-00 text-white p-3' onClick={handleAddCampaigns}>

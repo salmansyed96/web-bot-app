@@ -1,9 +1,9 @@
 import axios, { AxiosResponse } from "axios";
 
+// Automatically add Authorization header with Bearer token to every request
 (() => {
   axios.interceptors.request.use(
     (config) => {
-      // Retrieve the token from localStorage or any other storage you are using
       const token = localStorage.getItem("token");
       if (token) {
         config.headers = config.headers || {};
@@ -18,6 +18,7 @@ import axios, { AxiosResponse } from "axios";
 })();
 
 export const apiService = {
+  // GET request method
   async get<T>(url: string): Promise<ApiResponse<T>> {
     try {
       const response = await fetch(url);
@@ -31,6 +32,7 @@ export const apiService = {
     }
   },
 
+  // POST request method
   async post<T>(url: string, data: any): Promise<ApiResponse<T>> {
     try {
       const response = await fetch(url, {
@@ -50,28 +52,25 @@ export const apiService = {
     }
   },
 
+  // Login method using Axios
   async login(data: any): Promise<AxiosResponse<any>> {
     const url = `${process.env.NEXT_PUBLIC_API_URL}api/v1/auth/signin`;
-    // const data = { username, password };
     return axios.post<any>(url, data);
   },
 
+  // Add campaign method using Axios
   async addCampaign(data: any): Promise<AxiosResponse<any>> {
     const url = `${process.env.NEXT_PUBLIC_API_URL}maker/add-campaign`;
     return axios.post<any>(url, data);
   },
 
-  // async getAllCampaign(): Promise<AxiosResponse<any>> {
-    
-  //   const url = `${process.env.NEXT_PUBLIC_API_URL}checker/all-messages`;
-  //   return axios.get<any>(url);
-  // }
+  // Get all campaigns method using Axios
   async getAllCampaign(): Promise<AxiosResponse<any>> {
     const url = `${process.env.NEXT_PUBLIC_API_URL}checker/all-messages`;
     const headers = {
       'ngrok-skip-browser-warning': '69420',
     };
-  
+
     try {
       const response = await axios.get(url, { headers });
       return response;
@@ -82,6 +81,7 @@ export const apiService = {
   }
 };
 
+// Define the interface for API responses
 export interface ApiResponse<T> {
   data: T;
   error?: string;
