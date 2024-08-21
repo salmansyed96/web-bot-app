@@ -472,7 +472,7 @@ const NavBar: React.FC = () => {
   const searchParams = useSearchParams()
 
   useEffect(() => {
-    debugger
+   
     if (pathname === '/LoginPage' || pathname === '/') {
       setShowProfile(false)
     } else {
