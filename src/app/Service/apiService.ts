@@ -32,6 +32,7 @@ export const apiService = {
     }
   },
 
+  
   // POST request method
   async post<T>(url: string, data: any): Promise<ApiResponse<T>> {
     try {
@@ -63,10 +64,32 @@ export const apiService = {
     const url = `${process.env.NEXT_PUBLIC_API_URL}maker/add-campaign`;
     return axios.post<any>(url, data);
   },
+   // Add campaign method using Axios
+   async addTemplate(data: any): Promise<AxiosResponse<any>> {
+
+    const url = `${process.env.NEXT_PUBLIC_API_URL}api/v1/admin/template`;
+    return axios.post<any>(url, data);
+  },
 
   // Get all campaigns method using Axios
   async getAllCampaign(): Promise<AxiosResponse<any>> {
     const url = `${process.env.NEXT_PUBLIC_API_URL}checker/all-messages`;
+    const headers = {
+      'ngrok-skip-browser-warning': '69420',
+    };
+
+    
+
+    try {
+      const response = await axios.get(url, { headers });
+      return response;
+    } catch (error) {
+      console.error('Error fetching campaigns:', error);
+      throw error;
+    }
+  },
+  async getAllTemplates(): Promise<AxiosResponse<any>> {
+    const url = `${process.env.NEXT_PUBLIC_API_URL}api/v1/admin/template`;
     const headers = {
       'ngrok-skip-browser-warning': '69420',
     };
