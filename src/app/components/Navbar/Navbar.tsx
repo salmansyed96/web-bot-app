@@ -497,12 +497,41 @@ const NavBar: React.FC = () => {
   const handleMouseLeave = () => {
     setIsOpen(false);
   };
+  const route = useRouter();
+
+  const handleNavigation = (path: string) => {
+    router.push(path);
+  };
 
   return (
     <div className='bg-green-700 py-4 flex justify-between items-center'>
       <div className='flex items-center'>
         <span className='text-white ml-2 text-4xl'>WhatsBot</span>
       </div>
+      
+
+      <div className="bg-green-700 py-4 flex justify-between items-center px-6">
+      <div className="flex items-center">
+        
+      </div>
+      <div className="flex items-center space-x-6">
+        <button
+          onClick={() => handleNavigation('/TemplateList')}
+          className="text-white text-lg hover:bg-green-800 py-2 px-4 rounded-md"
+        >
+          Templates
+        </button>
+        <button
+          onClick={() => handleNavigation('/Campaigns')}
+          className="text-white text-lg hover:bg-green-800 py-2 px-4 rounded-md"
+        >
+          Campaigns
+        </button>
+      </div>
+    </div>
+
+
+
       {showProfile && (
         <div
           className='relative'
