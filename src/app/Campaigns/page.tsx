@@ -23,16 +23,17 @@ interface Campaign {
 const Page = () => {
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [campaignsPerPage] = useState<number>(10); // Items per page
   const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log("inside use effect");
       NProgress.start(); // Start the progress bar
 
       try {
         const response = await apiService.getAllCampaign();
-        console.log(response.data);
         if (response && response.data) {
           const uniqueCampaigns = new Set();
           const filteredCampaigns = response.data.filter((campaign: any) => {
@@ -42,7 +43,13 @@ const Page = () => {
             uniqueCampaigns.add(campaign.campaignName);
             return true;
           });
-          setCampaigns(filteredCampaigns);
+
+          // Sort campaigns by createdDate in descending order
+          const sortedCampaigns = filteredCampaigns.sort((a, b) => new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime());
+
+          setCampaigns(sortedCampaigns);
+        } else {
+          setCampaigns([]); // Handle case where no campaigns are found
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -56,29 +63,63 @@ const Page = () => {
   }, []);
 
   const handleAddCampaigns = () => {
-    console.log('Add Campaigns button clicked');
     router.push('/AddCampaign');
   };
 
   const handleCampaignClick = (id: number) => {
-    console.log(id);
     router.push(`/Campaigns/${id}`);
   };
 
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
+
+  // Filtered campaigns based on search term
+  const filteredCampaigns = campaigns.filter(campaign =>
+    campaign.campaignName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Pagination logic
+  const indexOfLastCampaign = currentPage * campaignsPerPage;
+  const indexOfFirstCampaign = indexOfLastCampaign - campaignsPerPage;
+  const currentCampaigns = filteredCampaigns.slice(indexOfFirstCampaign, indexOfLastCampaign);
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
   return (
     <>
-      <div className='flex justify-between items-baseline'>
-        <h1 className='ml-14' style={{ fontWeight: 'bold', fontSize: '40px' }}>
+      <div className='flex justify-between items-baseline mb-5 mt-14'>
+        <h1 className='ml-14 font-bold text-4xl'>
           Campaigns
         </h1>
-        <button className='addbtn mr-10 h-55px py-4 mt-20 rounded-xl bg-green-00 text-white p-3' onClick={handleAddCampaigns}>
-          Add Campaigns
-        </button>
+        <div className="flex items-center mr-10">
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={handleSearch}
+            placeholder="Search Campaigns"
+            className="border border-gray-300 rounded-lg py-2 px-4 w-72 focus:outline-none focus:border-green-600 mr-4"
+          />
+          <button
+            className='hover:bg-green-800 h-10 rounded-lg bg-green-600 text-white px-5 cursor-pointer'
+            onClick={handleAddCampaigns}
+          >
+            Add Campaigns
+          </button>
+        </div>
       </div>
 
       {loading ? (
         <div className='text-center mt-5'>
           <FaSpinner className="animate-spin text-4xl text-gray-600 mx-auto" />
+        </div>
+      ) : currentCampaigns.length === 0 ? (
+        <div className='text-center mt-24'>
+          <img 
+            src="/Pagenot.png" 
+            alt="No Data Found" 
+            className="mx-auto w-64 h-64 object-cover"
+          />
         </div>
       ) : (
         <div className="overflow-x-auto">
@@ -91,13 +132,16 @@ const Page = () => {
                 <th className="p-3">Actions</th>
               </tr>
             </thead>
-            <tbody className='ml-10'>
-              {campaigns.map(campaign => (
+            <tbody>
+              {currentCampaigns.map(campaign => (
                 <tr key={campaign.id} className="border-b">
                   <td className="p-3 cursor-pointer" onClick={() => handleCampaignClick(campaign.id)}>{campaign.campaignName}</td>
                   <td className="p-3">{campaign.createdDate}</td>
                   <td className="p-3">
-                    <span style={{ backgroundColor: 'rgb(217 247 230)', color: '#28C76F', padding: '10px' }} className={`px-2 py-1 rounded-md font-semibold text-white ${campaign.status == 1 ? 'bg-yellow-500' : 'bg-green-500'}`}>
+                    <span
+                      style={{ backgroundColor: 'rgb(217 247 230)', color: '#28C76F', padding: '10px' }}
+                      className={`px-2 py-1 rounded-md font-semibold ${campaign.status == 1 ? 'bg-yellow-500' : 'bg-green-500'}`}
+                    >
                       {campaign.status == 0 ? 'Pending' : 'Active'}
                     </span>
                   </td>
@@ -115,6 +159,19 @@ const Page = () => {
           </table>
         </div>
       )}
+
+      {/* Pagination */}
+      <div className="flex justify-center mt-4">
+        {Array.from({ length: Math.ceil(filteredCampaigns.length / campaignsPerPage) }, (_, i) => (
+          <button
+            key={i}
+            onClick={() => paginate(i + 1)}
+            className={`mx-1 px-3 py-1 rounded-lg ${i + 1 === currentPage ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-600'} focus:outline-none`}
+          >
+            {i + 1}
+          </button>
+        ))}
+      </div>
     </>
   );
 };

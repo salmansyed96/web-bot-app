@@ -380,8 +380,12 @@ const TemplateList = () => {
           <FaSpinner className="animate-spin text-4xl text-gray-600 mx-auto" />
         </div>
       ) : error ? (
-        <div className='text-center mt-5 text-red-600'>
-          {error}
+        <div className='text-center mt-20'>
+          <img 
+            src="/Pagenot.png" 
+            alt="No Data Found" 
+            className="mx-auto w-64 h-64 object-cover"
+          />
         </div>
       ) : (
         <>
