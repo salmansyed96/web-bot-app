@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { apiService, ApiResponse } from '../Service/apiService';
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import TemplateList from '../components/filter';
 
 const FormComponent: React.FC = () => {
   const [campaignName, setCampaignName] = useState<string>('');
@@ -129,6 +130,7 @@ const FormComponent: React.FC = () => {
                   <p className="text-red-500 text-sm mt-1">{errors.file}</p>
                 )}
               </div>
+              <TemplateList/>
               <button
                 type="submit"
                 className="bg-green-700 hover:bg-green-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
