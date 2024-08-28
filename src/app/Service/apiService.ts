@@ -70,6 +70,12 @@ export const apiService = {
     const url = `${process.env.NEXT_PUBLIC_API_URL}api/v1/admin/template`;
     return axios.post<any>(url, data);
   },
+  // Add campaign method using Axios
+  async fetchTemplates(data: any): Promise<AxiosResponse<any>> {
+
+    const url = `${process.env.NEXT_PUBLIC_API_URL}api/v1/admin/template/completed`;
+    return axios.post<any>(url, data);
+  },
 
   // Get all campaigns method using Axios
   async getAllCampaign(): Promise<AxiosResponse<any>> {
@@ -93,6 +99,8 @@ export const apiService = {
     const headers = {
       'ngrok-skip-browser-warning': '69420',
     };
+
+    
 
     
 

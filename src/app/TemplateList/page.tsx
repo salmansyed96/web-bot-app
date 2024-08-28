@@ -389,44 +389,46 @@ const TemplateList = () => {
         </div>
       ) : (
         <>
-          <div className="overflow-x-auto">
-            <table className="min-w-full bg-white shadow-md border-collapse">
-              <thead>
-                <tr className="border-b">
-                  <th className="p-3">Template Name</th>
-                  <th className="p-3">Creation Date</th>
-                  <th className="p-3">Status</th>
-                  <th className="p-3">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentTemplates.length > 0 ? (
-                  currentTemplates.map(template => (
-                    <tr key={template.id} className="border-b">
-                      <td className="p-3 cursor-pointer" onClick={() => handleTemplateClick(template.id)}>{template.templateName}</td>
-                      <td className="p-3">{template.createDate}</td>
-                      <td className="p-3">
-                        <span className={`px-2 py-1 rounded-md font-semibold text-white ${template.status === 'completed' ? 'bg-green-500' : 'bg-yellow-500'}`}>
-                          {template.status}
-                        </span>
-                      </td>
-                      <td className="p-3">
-                        <button className="p-2">
-                          <FaEdit style={{ color: '#4B465C' }} />
-                        </button>
-                        <button className="p-2">
-                          <FaTrash style={{ color: '#4B465C' }} />
-                        </button>
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan={4} className="p-3 text-center">No templates available</td>
+          <div className="flex justify-center overflow-x-auto">
+            <div className="w-full max-w-7xl mt-10">
+              <table className="min-w-full bg-white shadow-md border-collapse">
+                <thead>
+                  <tr className="border-b">
+                    <th className="p-3 text-left">Template Name</th>
+                    <th className="p-3 text-left">Creation Date</th>
+                    <th className="p-3 text-left">Status</th>
+                    <th className="p-3 text-left">Actions</th>
                   </tr>
-                )}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {currentTemplates.length > 0 ? (
+                    currentTemplates.map(template => (
+                      <tr key={template.id} className="border-b">
+                        <td className="p-3 text-left cursor-pointer" onClick={() => handleTemplateClick(template.id)}>{template.templateName}</td>
+                        <td className="p-3 text-left">{template.createDate}</td>
+                        <td className="p-3 text-left">
+                          <span className={`px-2 py-1 rounded-md font-semibold text-white ${template.status === 'completed' ? 'bg-green-500' : 'bg-yellow-500'}`}>
+                            {template.status}
+                          </span>
+                        </td>
+                        <td className="p-3 text-left">
+                          <button className="p-2">
+                            <FaEdit style={{ color: '#4B465C' }} />
+                          </button>
+                          <button className="p-2">
+                            <FaTrash style={{ color: '#4B465C' }} />
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan={4} className="p-3 text-center">No templates available</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
           {/* Pagination */}
           <div className="flex justify-center mt-4">

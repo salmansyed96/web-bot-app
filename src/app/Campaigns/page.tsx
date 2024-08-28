@@ -122,41 +122,43 @@ const Page = () => {
           />
         </div>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="min-w-full bg-white shadow-md border-collapse">
-            <thead>
-              <tr className="border-b">
-                <th className="p-3">Campaign Name</th>
-                <th className="p-3">Start Date</th>
-                <th className="p-3">Status</th>
-                <th className="p-3">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentCampaigns.map(campaign => (
-                <tr key={campaign.id} className="border-b">
-                  <td className="p-3 cursor-pointer" onClick={() => handleCampaignClick(campaign.id)}>{campaign.campaignName}</td>
-                  <td className="p-3">{campaign.createdDate}</td>
-                  <td className="p-3">
-                    <span
-                      style={{ backgroundColor: 'rgb(217 247 230)', color: '#28C76F', padding: '10px' }}
-                      className={`px-2 py-1 rounded-md font-semibold ${campaign.status == 1 ? 'bg-yellow-500' : 'bg-green-500'}`}
-                    >
-                      {campaign.status == 0 ? 'Pending' : 'Active'}
-                    </span>
-                  </td>
-                  <td className="p-3">
-                    <button className="p-2">
-                      <FaEdit style={{ color: '#4B465C' }} />
-                    </button>
-                    <button className="p-2">
-                      <FaTrash style={{ color: '#4B465C' }} />
-                    </button>
-                  </td>
+        <div className="flex justify-center overflow-x-auto">
+          <div className="w-full max-w-7xl mt-10">
+            <table className="min-w-full bg-white shadow-md border-collapse">
+              <thead>
+                <tr className="border-b">
+                  <th className="p-3 text-left w-1/3">Campaign Name</th>
+                  <th className="p-3 text-left w-1/3">Start Date</th>
+                  <th className="p-3 text-left w-1/6">Status</th>
+                  <th className="p-3 text-left w-1/6">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {currentCampaigns.map(campaign => (
+                  <tr key={campaign.id} className="border-b">
+                    <td className="p-3 cursor-pointer w-1/3" onClick={() => handleCampaignClick(campaign.id)}>{campaign.campaignName}</td>
+                    <td className="p-3 w-1/3">{campaign.createdDate}</td>
+                    <td className="p-3 w-1/6">
+                      <span
+                        style={{ backgroundColor: 'rgb(217 247 230)', color: '#28C76F', padding: '10px' }}
+                        className={`px-2 py-1 rounded-md font-semibold ${campaign.status == 1 ? 'bg-yellow-500' : 'bg-green-500'}`}
+                      >
+                        {campaign.status == 0 ? 'Pending' : 'Active'}
+                      </span>
+                    </td>
+                    <td className="p-3 w-1/6">
+                      <button className="p-2">
+                        <FaEdit style={{ color: '#4B465C' }} />
+                      </button>
+                      <button className="p-2">
+                        <FaTrash style={{ color: '#4B465C' }} />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
 

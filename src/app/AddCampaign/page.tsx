@@ -6,6 +6,7 @@ import { apiService, ApiResponse } from '../Service/apiService';
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import TemplateList from '../components/filter';
+import DropdownWithApi from '../components/filter';
 
 const FormComponent: React.FC = () => {
   const [campaignName, setCampaignName] = useState<string>('');
@@ -105,9 +106,8 @@ const FormComponent: React.FC = () => {
                   type="text"
                   value={campaignName}
                   onChange={(e) => setCampaignName(e.target.value)}
-                  className={`w-full border-2 p-2 rounded-md focus:outline-none focus:border-green-600 ${
-                    errors.campaignName ? 'border-red-500' : 'border-gray-300'
-                  }`}
+                  className={`w-full border-2 p-2 rounded-md focus:outline-none focus:border-green-600 ${errors.campaignName ? 'border-red-500' : 'border-gray-300'
+                    }`}
                   placeholder="Enter campaign name"
                 />
                 {errors.campaignName && (
@@ -122,15 +122,24 @@ const FormComponent: React.FC = () => {
                   id="file"
                   type="file"
                   onChange={handleFileChange}
-                  className={`w-full border-2 p-2 rounded-md focus:outline-none focus:border-green-600 ${
-                    errors.file ? 'border-red-500' : 'border-gray-300'
-                  }`}
+                  className={`w-full border-2 p-2 rounded-md focus:outline-none focus:border-green-600 ${errors.file ? 'border-red-500' : 'border-gray-300'
+                    }`}
                 />
                 {errors.file && (
                   <p className="text-red-500 text-sm mt-1">{errors.file}</p>
                 )}
               </div>
-              <TemplateList/>
+
+            {/* <TemplateList/> */}
+                    <div className="mb-5">
+                      {/* <DropdownWithApi /> */}
+                      <div className="relative inline-block w-64">
+                  <select id="templateDropdown" className="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-600">
+                    <option value="" disabled selected>Select a template</option>
+                  </select>
+                </div>
+
+              </div>
               <button
                 type="submit"
                 className="bg-green-700 hover:bg-green-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
