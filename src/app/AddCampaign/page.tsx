@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { apiService, ApiResponse } from '../Service/apiService';
 import { toast, ToastContainer } from "react-toastify";
@@ -8,10 +8,15 @@ import "react-toastify/dist/ReactToastify.css";
 import TemplateList from '../components/filter';
 import DropdownWithApi from '../components/filter';
 
+
+
+
 const FormComponent: React.FC = () => {
   const [campaignName, setCampaignName] = useState<string>('');
   const [file, setFile] = useState<File | null>(null);
   const [errors, setErrors] = useState<{ campaignName?: string; file?: string }>({});
+  const [templates, setTemplates] = useState([]);
+
   const [loading, setLoading] = useState<boolean>(false); // Loading state
   const router = useRouter();
 
@@ -28,6 +33,24 @@ const FormComponent: React.FC = () => {
 
     return newErrors;
   };
+
+  useEffect(() => {
+    const fetchTemplates = async () => {
+      try {
+        const response = await apiService.getAllCompeletdtemplate(); // Corrected function name to match context
+        const data = await response.data;
+        console.log(data);
+        
+        setTemplates(data);
+      }catch (error) {
+        console.error("Error fetching templates:", error);
+      }
+    };
+  
+    fetchTemplates();
+  }, []);
+  
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -130,14 +153,19 @@ const FormComponent: React.FC = () => {
                 )}
               </div>
 
-            {/* <TemplateList/> */}
-                    <div className="mb-5">
-                      {/* <DropdownWithApi /> */}
-                      <div className="relative inline-block w-64">
-                  <select id="templateDropdown" className="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-600">
-                    <option value="" disabled selected>Select a template</option>
-                  </select>
-                </div>
+              {/* <TemplateList/> */}
+              {/* <DropdownWithApi /> */}
+              <div className="mb-5">
+              <div className="relative inline-block w-64">
+      <select id="templateDropdown" className="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-600">
+        <option value="" disabled selected>Select a template</option>
+        {templates.map((template: any) => (
+          <option key={template.id} value={template.id}>
+            {template.templateName}
+          </option>
+        ))}
+      </select>
+    </div>
 
               </div>
               <button

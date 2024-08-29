@@ -94,6 +94,23 @@ export const apiService = {
       throw error;
     }
   },
+  async getAllCompeletdtemplate(): Promise<AxiosResponse<any>> {
+    const url = `${process.env.NEXT_PUBLIC_API_URL}api/v1/admin/template/completed`;
+    const headers = {
+      'ngrok-skip-browser-warning': '69420',
+    };
+
+    
+
+    try {
+      const response = await axios.get(url, { headers });
+      return response;
+    } catch (error) {
+      console.error('Error fetching campaigns:', error);
+      throw error;
+    }
+  },
+
   async getAllTemplates(): Promise<AxiosResponse<any>> {
     const url = `${process.env.NEXT_PUBLIC_API_URL}api/v1/admin/template`;
     const headers = {
