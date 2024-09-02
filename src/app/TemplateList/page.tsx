@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import { apiService } from '../Service/apiService';
-import { FaTrash, FaEdit, FaSpinner, FaTimes } from 'react-icons/fa';
+import { FaTrash, FaEdit, FaSpinner, FaTimes, FaSort, FaSortUp, FaSortDown } from 'react-icons/fa';
 
 interface Template {
   id: number;
@@ -24,6 +24,8 @@ const TemplateList = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [templatesPerPage] = useState<number>(10);
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const [sortKey, setSortKey] = useState<string>('templateName'); // Default sorting by templateName
   const router = useRouter();
 
   useEffect(() => {
@@ -58,7 +60,27 @@ const TemplateList = () => {
     setSearchTerm(e.target.value);
   };
 
-  const filteredTemplates = templates.filter(template =>
+  const handleSort = (key: string) => {
+    setSortKey(key);
+    setSortOrder(prevOrder => prevOrder === 'asc' ? 'desc' : 'asc');
+  };
+
+  const sortedTemplates = [...templates].sort((a, b) => {
+    const aValue = a[sortKey as keyof Template];
+    const bValue = b[sortKey as keyof Template];
+
+    if (typeof aValue === 'string' && typeof bValue === 'string') {
+      return sortOrder === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+    }
+
+    if (sortKey === 'createDate') {
+      return sortOrder === 'asc' ? new Date(aValue as string).getTime() - new Date(bValue as string).getTime() : new Date(bValue as string).getTime() - new Date(aValue as string).getTime();
+    }
+
+    return 0;
+  });
+
+  const filteredTemplates = sortedTemplates.filter(template =>
     template.templateName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -124,9 +146,18 @@ const TemplateList = () => {
               <table className="min-w-full bg-white shadow-md border-collapse">
                 <thead>
                   <tr className="border-b">
-                    <th className="p-3 text-left">Template Name</th>
-                    <th className="p-3 text-left">Creation Date</th>
-                    <th className="p-3 text-left">Status</th>
+                    <th className="p-3 text-left cursor-pointer" onClick={() => handleSort('templateName')}>
+                      Template Name
+                      {sortKey === 'templateName' ? (sortOrder === 'asc' ? <FaSortUp className="inline ml-2" /> : <FaSortDown className="inline ml-2" />) : <FaSort className="inline ml-2" />}
+                    </th>
+                    <th className="p-3 text-left cursor-pointer" onClick={() => handleSort('createDate')}>
+                      Creation Date
+                      {sortKey === 'createDate' ? (sortOrder === 'asc' ? <FaSortUp className="inline ml-2" /> : <FaSortDown className="inline ml-2" />) : <FaSort className="inline ml-2" />}
+                    </th>
+                    <th className="p-3 text-left cursor-pointer" onClick={() => handleSort('status')}>
+                      Status
+                      {sortKey === 'status' ? (sortOrder === 'asc' ? <FaSortUp className="inline ml-2" /> : <FaSortDown className="inline ml-2" />) : <FaSort className="inline ml-2" />}
+                    </th>
                     <th className="p-3 text-left">Actions</th>
                   </tr>
                 </thead>
@@ -193,7 +224,7 @@ const TemplateList = () => {
             <h2 className="text-xl font-bold mb-10">Select Approval Status</h2>
             <div className='text-center'>
               <div className="mb-4">
-                <label className={`mr-2 p-2 rounded ${selectedStatus === 'Completed' ? 'bg-green-200' : 'bg-gray-200'}`}>
+                <label className={`mr-2 p-2 rounded ${selectedStatus === 'Completed' ? 'bg-green-500' : 'bg-gray-200'}`}>
                   <input
                     type="radio"
                     value="Completed"
