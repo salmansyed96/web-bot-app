@@ -9,8 +9,8 @@ import { useRouter } from 'next/navigation';
 const TemplateForm: React.FC = () => {
   const [templateName, setTemplateName] = useState<string>('');
   const [templateMessage, setTemplateMessage] = useState<string>('');
-  const [templateType, setTemplateType] = useState<string>('SMS');
-  const [category, setCategory] = useState<string>('');
+  const [templateType, setTemplateType] = useState<string>('Email');
+  const [category, setCategory] = useState<string>('Marketing');
   const [status] = useState<string>('start'); // Hidden field
   const [createBy, setCreateBy] = useState<string>(''); // Hidden field
   const router = useRouter();
@@ -90,7 +90,7 @@ const TemplateForm: React.FC = () => {
                 placeholder="Enter template message"
               />
             </div>
-            {/* Uncomment if needed
+            {/* Uncomment if needed */}
             <div className="mb-4">
               <label htmlFor="templateType" className="block text-gray-700 font-bold mb-2">
                 Template Type:
@@ -101,23 +101,29 @@ const TemplateForm: React.FC = () => {
                 onChange={(e) => setTemplateType(e.target.value)}
                 className="w-full border-2 p-2 rounded-md focus:outline-none focus:border-green-600"
               >
-                <option value="SMS">SMS</option>
                 <option value="Email">Email</option>
               </select>
             </div>
-            */}
+           
             <div className="mb-4">
               <label htmlFor="category" className="block text-gray-700 font-bold mb-2">
                 Category:
               </label>
-              <input
+              <select 
+                id='category'  
+                onChange={(e) => setCategory(e.target.value)}
+                className="w-full border-2 p-2 rounded-md focus:outline-none focus:border-green-600">
+                <option value="" className='text-gray-700'>Marketing</option>
+              </select>
+
+              {/* <input
                 id="category"
                 type="text"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 className="w-full border-2 p-2 rounded-md focus:outline-none focus:border-green-600"
                 placeholder="Enter category"
-              />
+              /> */}
             </div>
             <button
               type="submit"

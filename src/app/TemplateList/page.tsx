@@ -3,7 +3,8 @@
 import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import { apiService } from '../Service/apiService';
-import { FaTrash, FaEdit, FaSpinner, FaTimes, FaSort, FaSortUp, FaSortDown } from 'react-icons/fa';
+import { FaTrash, FaEdit, FaSpinner, FaTimes, FaSort, FaSortUp, FaSortDown, } from 'react-icons/fa';
+import { IoMdRefresh } from "react-icons/io";
 
 interface Template {
   id: number;
@@ -28,7 +29,16 @@ const TemplateList = () => {
   const [sortKey, setSortKey] = useState<string>('templateName'); // Default sorting by templateName
   const router = useRouter();
 
+  const refreshPage = () => {
+    window.location.reload();
+  }
+
+
+
   useEffect(() => {
+
+    
+
     const fetchData = async () => {
       try {
         const response = await apiService.getAllTemplates();
@@ -124,6 +134,9 @@ const TemplateList = () => {
           >
             Add Template
           </button>
+          <button className='ml-4 bg-green-600 h-10 rounded-lg p-5 flex justify-center items-center text-white'>
+            <IoMdRefresh onClick={refreshPage} />
+          </button>
         </div>
       </div>
 
@@ -173,11 +186,11 @@ const TemplateList = () => {
                           </span>
                         </td>
                         <td className="p-3 text-left flex items-center">
-                          <input
+                          {/* <input
                             type="checkbox"
                             className={`mr-2 h-4 w-4 rounded ${selectedStatus === 'Completed' ? 'bg-green-600' : selectedStatus === 'Inactive' ? 'bg-red-600' : selectedStatus === 'Pending' ? 'bg-yellow-600' : 'bg-gray-300'}`}
                             onChange={handleCheckboxChange}
-                          />
+                          /> */}
                           <button className="p-2">
                             <FaEdit style={{ color: '#4B465C' }} />
                           </button>

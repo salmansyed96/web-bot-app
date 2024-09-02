@@ -7,6 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import TemplateList from '../components/filter';
 import DropdownWithApi from '../components/filter';
+import { stringify } from 'querystring';
 
 
 
@@ -16,6 +17,7 @@ const FormComponent: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const [errors, setErrors] = useState<{ campaignName?: string; file?: string }>({});
   const [templates, setTemplates] = useState([]);
+  const [templateMessage, setTemplateMessage] = useState("PlaceHolder message");
 
   const [loading, setLoading] = useState<boolean>(false); // Loading state
   const router = useRouter();
@@ -39,9 +41,10 @@ const FormComponent: React.FC = () => {
       try {
         const response = await apiService.getAllCompeletdtemplate(); // Corrected function name to match context
         const data = await response.data;
-        console.log(data);
         
+        console.log(data);
         setTemplates(data);
+        
       }catch (error) {
         console.error("Error fetching templates:", error);
       }
@@ -49,8 +52,8 @@ const FormComponent: React.FC = () => {
   
     fetchTemplates();
   }, []);
-  
 
+  
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -153,6 +156,8 @@ const FormComponent: React.FC = () => {
                 )}
               </div>
 
+
+
               {/* <TemplateList/> */}
               {/* <DropdownWithApi /> */}
               <div className="mb-5">
@@ -165,6 +170,15 @@ const FormComponent: React.FC = () => {
           </option>
         ))}
       </select>
+      <div className='mt-4'>
+        <label htmlFor="templateMessage" className="block text-gray-700 font-bold mb-2">
+            Template Message
+        </label>
+        <div className='className="w-full border-2 p-2 text-gray-700 rounded-md focus:outline-none focus:border-green-600">'>
+          <p>{templateMessage}</p>
+        </div>
+      </div>
+      
     </div>
 
               </div>
