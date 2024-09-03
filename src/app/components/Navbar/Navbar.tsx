@@ -34,16 +34,21 @@ const NavBar: React.FC = () => {
     setIsOpen(true);
   };
 
-  const handleMouseLeave = () => {
-    setIsOpen(false);
+  // For delaying the handleMouseLeave by 2 seconds, beforing setting setIsOpen to false.
+  const handleMouseLeave = () => { 
+    setTimeout(() => {
+      setIsOpen(false);
+    }, 2000)
   };
+
+  
 
   const handleNavigation = (path: string) => {
     router.push(path);
   };
 
   return (
-    <div className='bg-green-700 py-4 flex justify-between items-center'>
+    <div className='bg-green-700 py-4 flex justify-between items-center '>
       <div className='flex items-center ml-5'>
         <span className='text-white ml-2 text-4xl'>WhatsBot</span>
       </div>
@@ -73,7 +78,7 @@ const NavBar: React.FC = () => {
 
       {showProfile && (
         <div
-          className='relative'
+          className='relative z-50'
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >

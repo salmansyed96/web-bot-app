@@ -14,7 +14,7 @@ const FormComponent: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const [errors, setErrors] = useState<{ campaignName?: string; file?: string }>({});
   const [templates, setTemplates] = useState([]);
-  const [templateMessage, setTemplateMessage] = useState("PlaceHolder message");
+  const [templateMessage, setTemplateMessage] = useState("please select a template");
 
   const [loading, setLoading] = useState<boolean>(false); // Loading state
   const router = useRouter();
@@ -55,7 +55,7 @@ const FormComponent: React.FC = () => {
     console.log();
     
     const selectedTemplate = templates.find((template: any) => template.id == selectedTemplateId);
-    setTemplateMessage(selectedTemplate ? selectedTemplate.templateMessage: 'No message available for this template');
+    setTemplateMessage(selectedTemplate ? selectedTemplate.templateMessage : 'No message available for this template');
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -159,8 +159,8 @@ const FormComponent: React.FC = () => {
                 )}
               </div>
 
-              <div className="mb-5">
-                <div className="relative inline-block w-64">
+              <div className="mb-5 w-full">
+                <div className="relative inline-block">
                   <select 
                     id="templateDropdown" 
                     className="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-600"
@@ -173,12 +173,12 @@ const FormComponent: React.FC = () => {
                       </option>
                     ))}
                   </select>
-                  <div className="mt-4">
+                  <div className="mt-4 flex flex-col w-full">
                     <label htmlFor="templateMessage" className="block text-gray-700 font-bold mb-2">
                         Template Message
                     </label>
                     <div className="w-full border-2 p-2 text-gray-700 rounded-md focus:outline-none focus:border-green-600">
-                      <p>{templateMessage}</p>
+                      <p className="text-gray-600">{templateMessage}</p>
                     </div>
                   </div>
                 </div>

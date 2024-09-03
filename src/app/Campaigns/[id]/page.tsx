@@ -6,6 +6,7 @@ import * as ProgressPrimitive from "@radix-ui/react-progress";
 
 // Define a TypeScript type for campaign data
 interface Campaign {
+  id: string;
   campaignName: string;
   startDate: string;
   status: string;
@@ -40,10 +41,13 @@ const Progress = React.forwardRef<
 Progress.displayName = ProgressPrimitive.Root.displayName;
 
 const CampaignDetails = () => {
-  const { id } = useParams<{ id?: string }>(); // Define type for id parameter
+  // const { id } = useParams<{ id?: string }>(); // Define type for id parameter
+  const params = useParams<{id? : string}>()
+  const id = params?.id;
   const [campaign, setCampaign] = useState<Campaign | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [progressValue, setProgressValue] = useState<number>(0);
+
 
   useEffect(() => {
     if (id) {
@@ -58,6 +62,7 @@ const CampaignDetails = () => {
 
           setTimeout(() => {
             setCampaign({
+              id: "dkdkdkd",
               campaignName: "Dubai Property",
               startDate: "10-12-20",
               status: "Active",

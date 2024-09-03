@@ -181,7 +181,7 @@ const TemplateList = () => {
                         <td className="p-3 text-left cursor-pointer" onClick={() => handleTemplateClick(template.id)}>{template.templateName}</td>
                         <td className="p-3 text-left">{template.createDate}</td>
                         <td className="p-3 text-left">
-                          <span className={`px-2 py-1 rounded-md font-semibold text-white ${template.status === 'completed' ? 'bg-green-500' : 'bg-yellow-500'}`}>
+                          <span className={`px-2 py-1 rounded-md font-semibold text-white ${template.status === 'Completed' ? 'bg-green-500' : 'bg-yellow-500'}`}>
                             {template.status}
                           </span>
                         </td>
