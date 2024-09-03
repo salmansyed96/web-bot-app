@@ -9,9 +9,6 @@ import TemplateList from '../components/filter';
 import DropdownWithApi from '../components/filter';
 import { stringify } from 'querystring';
 
-
-
-
 const FormComponent: React.FC = () => {
   const [campaignName, setCampaignName] = useState<string>('');
   const [file, setFile] = useState<File | null>(null);
@@ -53,7 +50,13 @@ const FormComponent: React.FC = () => {
     fetchTemplates();
   }, []);
 
-  
+  const handleTemplateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedTemplateId = e.target.value;
+    console.log();
+    
+    const selectedTemplate = templates.find((template: any) => template.id == selectedTemplateId);
+    setTemplateMessage(selectedTemplate ? selectedTemplate.templateMessage: 'No message available for this template');
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -156,32 +159,31 @@ const FormComponent: React.FC = () => {
                 )}
               </div>
 
-
-
-              {/* <TemplateList/> */}
-              {/* <DropdownWithApi /> */}
               <div className="mb-5">
-              <div className="relative inline-block w-64">
-      <select id="templateDropdown" className="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-600">
-        <option value="" disabled selected>Select a template</option>
-        {templates.map((template: any) => (
-          <option key={template.id} value={template.id}>
-            {template.templateName}
-          </option>
-        ))}
-      </select>
-      <div className='mt-4'>
-        <label htmlFor="templateMessage" className="block text-gray-700 font-bold mb-2">
-            Template Message
-        </label>
-        <div className='className="w-full border-2 p-2 text-gray-700 rounded-md focus:outline-none focus:border-green-600">'>
-          <p>{templateMessage}</p>
-        </div>
-      </div>
-      
-    </div>
-
+                <div className="relative inline-block w-64">
+                  <select 
+                    id="templateDropdown" 
+                    className="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-600"
+                    onChange={handleTemplateChange}
+                  >
+                    <option value="" disabled selected>Select a template</option>
+                    {templates.map((template: any) => (
+                      <option key={template.id} value={template.id}>
+                        {template.templateName}
+                      </option>
+                    ))}
+                  </select>
+                  <div className="mt-4">
+                    <label htmlFor="templateMessage" className="block text-gray-700 font-bold mb-2">
+                        Template Message
+                    </label>
+                    <div className="w-full border-2 p-2 text-gray-700 rounded-md focus:outline-none focus:border-green-600">
+                      <p>{templateMessage}</p>
+                    </div>
+                  </div>
+                </div>
               </div>
+
               <button
                 type="submit"
                 className="bg-green-700 hover:bg-green-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
