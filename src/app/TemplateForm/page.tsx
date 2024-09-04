@@ -91,7 +91,7 @@ const TemplateForm: React.FC = () => {
               />
             </div>
             {/* Uncomment if needed */}
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label htmlFor="templateType" className="block text-gray-700 font-bold mb-2">
                 Template Type:
               </label>
@@ -103,7 +103,7 @@ const TemplateForm: React.FC = () => {
               >
                 <option value="Email">Email</option>
               </select>
-            </div>
+            </div> */}
            
             <div className="mb-4">
               <label htmlFor="category" className="block text-gray-700 font-bold mb-2">

@@ -81,6 +81,8 @@ const FormComponent: React.FC = () => {
       formData.append('campaignName', campaignName);
       formData.append('createdBy', username);
       formData.append('file', file!);
+      formData.append('template', templateMessage!);
+      
 
       console.log('Form data:', formData);
 
