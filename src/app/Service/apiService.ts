@@ -58,6 +58,11 @@ export const apiService = {
     const url = `${process.env.NEXT_PUBLIC_API_URL}api/v1/auth/signin`;
     return axios.post<any>(url, data);
   },
+  // Login method using Axios
+  async signup(data: any): Promise<AxiosResponse<any>> {
+    const url = `${process.env.NEXT_PUBLIC_API_URL}api/v1/auth/signup`;
+    return axios.post<any>(url, data);
+  },
 
   // Add campaign method using Axios
   async addCampaign(data: any): Promise<AxiosResponse<any>> {
